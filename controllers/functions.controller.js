@@ -20,7 +20,7 @@ var controller = {
     //Obtiene el parámetro que viene por la URL
     var address = request.params.address;
 
-    const stringToHex = tronWeb.toHex(address);
+    const stringToHex = tronWeb.address.toHex(address);
 
     return response.status(200).send({
       stringToHex,
