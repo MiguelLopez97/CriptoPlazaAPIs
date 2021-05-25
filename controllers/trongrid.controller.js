@@ -1,10 +1,9 @@
 'use strict'
 
-//Constantes para convertirHex()
 const TronWeb = require('tronweb');
-const fullNode = 'https://api.shasta.trongrid.io';
-const solidityNode = 'https://api.shasta.trongrid.io';
-const eventServer = 'https://api.shasta.trongrid.io';
+const fullNode = 'https://api.trongrid.io';
+const solidityNode = 'https://api.trongrid.io';
+const eventServer = 'https://api.trongrid.io';
 const privateKey = 'c6121fd8eab36bf6ca01a5096af69b083a3cd84dbabea603c80ee4a7839c2f2a'; // private key de cualquier address, no hay problema si no la cambias
 const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
@@ -26,6 +25,25 @@ var controller = {
       stringToHex,
       success: true
     });
+  },
+
+  generateAddress: async (request, response) => {
+    try
+    { 
+      let address = await tronWeb.createAccount();
+
+      return response.status(200).send({
+        address,
+        success: true
+      });
+    }
+    catch (error) 
+    {
+      return response.status(500).send({
+        error,
+        success: false
+      });
+    }
   },
 
   encodeParams: (request, response) => {
